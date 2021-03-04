@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 
 
 //Middleware
-//quizApp.use(bodyParser.json());
+quizApp.use(bodyParser.json());
 quizApp.use(expressValidator());
 quizApp.use(cors());
 quizApp.use("/",questionRoutes);

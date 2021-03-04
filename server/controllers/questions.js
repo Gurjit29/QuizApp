@@ -17,7 +17,6 @@ exports.getQuestions = (req, res) => {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
 
-    console.log('Connected!');
     let sql = `SELECT * FROM questions`;
 
     connection.query(sql, function (error, results, fields) {
@@ -29,6 +28,15 @@ exports.getQuestions = (req, res) => {
       if (error) throw error;
     });
   });
+
+};
+
+//Add a question to the database
+exports.addQuestion = (req,res) => {
+
+  //console.log('It is ---> ',req.body);
+
+  res.status(200).json(req.body);
 
 };
 
