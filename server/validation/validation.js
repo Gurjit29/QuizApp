@@ -2,9 +2,20 @@ const express = require ('express');
 
 exports.validateQuestion = (req,res,next) => {
 
-  req.check("question")
+  //Question must not be empty
+  req.check("questionText")
   .notEmpty()
-  .withMessage('Must enter question title')
+  .withMessage('Please enter the question title')
+
+  //Must have a correctAnswer
+  req.check("correctAnswer")
+  .notEmpty()
+  .withMessage('Please select a correct answer for the question')
+
+  //Validation if user entered any options
+  req.check("options")
+  .notEmpty()
+  .withMessage('Please enter at least one option for the question')
 
 
   var errors = req.validationErrors();
