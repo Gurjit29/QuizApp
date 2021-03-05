@@ -32,11 +32,9 @@ exports.getQuestions = (req, res) => {
 
     connection.query(sql, function (error, results, fields) {
 
-     
       // const obj = JSON.parse(JSON.stringify(results));
 
       const questions = [];
-      console.log(results)
 
       results.forEach(el => {
         const options = el.options.split(',');
@@ -57,6 +55,70 @@ exports.getQuestions = (req, res) => {
   });
 
 };
+
+
+
+//Update a question in the database
+exports.updateQuestion = (req, res) => {
+
+  //Add Question to database
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+
+    
+    let sql = `UPDATE questions SET questionText = '${req.body.questionText}', correctAnswer = '${req.body.correctAnswer}' WHERE questionID = ${req.body.questionID}`;
+
+    connection.query(sql, function (error, results, fields) {
+
+      //addOptionsToDatabase(results.insertId, req.body.options);
+      updateOptionsInDatabase(req.body.questionID,req.body.options,req.body.optionIDs);
+
+      res.status(200).json({ message: "The question has been update in the database" });
+
+      // When done with the connection, release it.
+      connection.release();
+      // Handle error after the release.
+      if (error) throw error;
+    });
+  });
+
+};
+
+//Update options in the database
+let updateOptionsInDatabase = (questionID, options,optionsIds) => {
+
+  options.forEach((option,index) => {
+
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+
+      let sql ="";
+      
+      if(option == ''){
+         sql = `DELETE FROM options WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
+
+      }
+      else{
+        sql = `UPDATE options SET questionOption = '${option}' WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
+
+      }
+      
+
+      connection.query(sql, function (error, results, fields) {
+
+        // When done with the connection, release it.
+        connection.release();
+        // Handle error after the release.
+        if (error) throw error;
+      });
+    });
+
+  });
+
+};
+
+
+
 
 
 //Add a question to the database
@@ -82,8 +144,6 @@ exports.addQuestion = (req, res) => {
     });
   });
 
-
-
 };
 
 
@@ -106,7 +166,6 @@ let addOptionsToDatabase = (insertId, options) => {
     });
 
   });
-
 
 };
 
