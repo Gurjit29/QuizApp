@@ -1,0 +1,48 @@
+body{
+  width:80%;
+  display:block;
+  margin:auto;
+  background-color: DARKGREY;
+  
+}
+
+.questionCard{
+  margin:10px 0px 10px 0px;
+  border:3px solid #20639B;
+  color:white;
+  font-weight:bold;
+  background-color: #173f5f;
+
+}
+
+#title{
+
+  width: fit-content;
+  padding:10px;
+  border-radius: 5px;
+  margin-top:10px;
+  vertical-align: middle;
+}
+
+#headerDiv * {
+  display: inline;
+  
+  
+}
+
+#headerDiv{
+  width: fit-content;
+  padding:10px;
+  border-radius: 10px;
+  display: block;
+  margin:auto;
+}
+
+#logo{
+  height:100px;
+  width:100px;
+  border-radius:400px;
+  
+  
+}
+
