@@ -18,7 +18,6 @@ function question(questionText, questionID, correctAnswer, optionID, options) {
   this.options = options;
 }
 
-
 //Retrieve all questions from database
 exports.getQuestions = (req, res) => {
 
@@ -73,11 +72,11 @@ exports.updateQuestion = (req, res) => {
       //addOptionsToDatabase(results.insertId, req.body.options);
       updateOptionsInDatabase(req.body.questionID,req.body.options,req.body.optionIDs);
 
-      res.status(200).json({ message: "The question has been update in the database" });
+      res.status(200).json({ message: "The question has been updated in the database" });
 
       // When done with the connection, release it.
       connection.release();
-      // Handle error after the release.
+      // Handle error after the release.uytde
       if (error) throw error;
     });
   });
@@ -93,7 +92,7 @@ let updateOptionsInDatabase = (questionID, options,optionsIds) => {
       if (err) throw err;
 
       let sql ="";
-      
+
       if(option == ''){
          sql = `DELETE FROM options WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
 
@@ -116,10 +115,6 @@ let updateOptionsInDatabase = (questionID, options,optionsIds) => {
   });
 
 };
-
-
-
-
 
 //Add a question to the database
 exports.addQuestion = (req, res) => {
@@ -165,6 +160,28 @@ let addOptionsToDatabase = (insertId, options) => {
       });
     });
 
+  });
+
+};
+
+
+exports.deleteQuestion = (req,res) => {
+
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+
+    let sql = `DELETE FROM questions WHERE questionID = '${req.body.questionID}'`;
+
+    connection.query(sql, function (error, results, fields) {
+
+
+      res.status(200).json({ message: "The question has been deleted! " });
+
+      // When done with the connection, release it.
+      connection.release();
+      // Handle error after the release.
+      if (error) throw error;
+    });
   });
 
 };
