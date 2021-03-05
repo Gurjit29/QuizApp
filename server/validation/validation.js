@@ -30,7 +30,7 @@ exports.validateQuestion = (req,res,next) => {
     });
 }
 
-//next() so that it proceeds to register if no errors are found
+//next() so that it proceeds if no errors are found
 next();
 
 
