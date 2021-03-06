@@ -2,12 +2,13 @@ body{
   width:80%;
   display:block;
   margin:auto;
-  background-color: DARKGREY;
+  background-color:rgb(189, 201, 206);
+  margin-bottom:50px;
   
 }
 
 .questionCard{
-  margin:10px 0px 10px 0px;
+  margin:10px 0px 0px 0px;
   border:3px solid #20639B;
   color:white;
   font-weight:bold;
@@ -42,7 +43,15 @@ body{
   height:100px;
   width:100px;
   border-radius:400px;
-  
+  border:7px solid rgb(248,202,81);
   
 }
+
+.utilityButtons{
+  margin-top:10px;
+}
+
+
+
+
 

@@ -37,7 +37,7 @@ let displayQuestions = (questions) => {
 
     questions[key].forEach(question => {
 
-      questionHolders.innerHTML += `<div class="fullQuestionHolder">
+      questionHolders.innerHTML += `<div class="questionAndOptionsHolder">
                                         <div class="card questionCard">
                                             <div class="card-body" id=question_${question.questionID}>
                                                 ${question.questionText}
@@ -61,6 +61,16 @@ let displayQuestions = (questions) => {
 
 
       questionHolders.innerHTML +=  `</div>`;
+
+      questionHolders.innerHTML += `<div class="utilityButtons">`;
+
+      questionHolders.innerHTML += `<button type="button" class="btn btn-danger" id="delete_${question.questionID}">Delete</button>&nbsp;&nbsp;`;
+
+      questionHolders.innerHTML += `<button type="button" class="btn btn-success" id="save_${question.questionID}">Save</button>&nbsp;&nbsp;`;
+
+      questionHolders.innerHTML += `</div>`;
+
+      questionHolders.innerHTML += `<hr style="height:10px;">`;
 
     //  console.log(question.questionText);
 
