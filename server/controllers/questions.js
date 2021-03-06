@@ -186,6 +186,26 @@ exports.deleteQuestion = (req,res) => {
 
 };
 
+exports.deleteQuestionOption = (req,res) => {
+
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+
+    let sql = `DELETE FROM options WHERE optionID = '${req.body.optionID}'`;
+
+    connection.query(sql, function (error, results, fields) {
+
+      res.status(200).json({ message: "The option has been deleted! " });
+
+      // When done with the connection, release it.
+      connection.release();
+      // Handle error after the release.
+      if (error) throw error;
+    });
+  });
+
+};
+
 
 /**
  *

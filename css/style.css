@@ -7,13 +7,19 @@ body{
   
 }
 
-.questionCard{
+.questionCard {
   margin:10px 0px 0px 0px;
   border:3px solid #20639B;
   color:white;
   font-weight:bold;
   background-color: #173f5f;
 
+}
+
+.questionCard input:focus, .questionCard input{
+  background-color: #173f5f;
+  color:white;
+  margin:0px !important;
 }
 
 #title{
@@ -49,6 +55,10 @@ body{
 
 .utilityButtons{
   margin-top:10px;
+}
+
+.deleteOptionButton{
+  margin:10px;
 }
 
 

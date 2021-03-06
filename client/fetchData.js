@@ -1,3 +1,5 @@
+
+
 const API_URI = 'http://localhost:3000/questions';
 
 let questionHolders = document.querySelector("#questions");
@@ -29,20 +31,14 @@ function getQuestions() {
 
 let displayQuestions = (questions) => {
 
-
-
   Object.keys(questions).forEach(key => {
-    // console.log('key ---> ',key);
-    //console.log('questions[key] ---> ',questions[key])
-
+    
     questions[key].forEach(question => {
 
       questionHolders.innerHTML += `<div class="questionAndOptionsHolder">
-                                        <div class="card questionCard">
-                                            <div class="card-body" id=question_${question.questionID}>
-                                                ${question.questionText}
-                                            </div>
-                                        </div>
+
+            <textarea id="question_${question.questionID}" class="col-sm-9 form-control" aria-label="With textarea">${question.questionText}
+            </textarea>                     
                                       `;
 
       question.options.forEach((option, index) => {
@@ -55,6 +51,7 @@ let displayQuestions = (questions) => {
               ${option == question.correctAnswer ? "checked" : ""}>
             </span>
             <input type="text" class="form-control" value="${option}" aria-label="Username" aria-describedby="addon-wrapping">
+            <button class="btn btn-danger deleteOptionButton" id="delete_option_${question.optionID[index]}" onclick="deleteOption('${question.optionID[index]}')">X</button>
           </div>`;
 
       });
@@ -64,9 +61,11 @@ let displayQuestions = (questions) => {
 
       questionHolders.innerHTML += `<div class="utilityButtons">`;
 
-      questionHolders.innerHTML += `<button type="button" class="btn btn-danger" id="delete_${question.questionID}">Delete</button>&nbsp;&nbsp;`;
+      questionHolders.innerHTML += `<button type="button" class="btn btn-danger delete" id="delete_${question.questionID}">Delete</button>&nbsp;&nbsp;`;
 
-      questionHolders.innerHTML += `<button type="button" class="btn btn-success" id="save_${question.questionID}">Save</button>&nbsp;&nbsp;`;
+      questionHolders.innerHTML += `<button type="button" class="btn btn-success save" id="save_${question.questionID}">Save</button>&nbsp;&nbsp;`;
+
+      questionHolders.innerHTML += `<button type="button" class="btn btn-info addOption" id="addOption_${question.questionID}">Add Option</button>&nbsp;&nbsp;`;
 
       questionHolders.innerHTML += `</div>`;
 
@@ -78,3 +77,51 @@ let displayQuestions = (questions) => {
 
   })
 }
+
+
+let deleteOption = async(optionId) => {
+
+  let requestBody = {"optionID" :optionId};
+  console.log(requestBody);
+
+
+  clearData();
+  deleteQuestionOption(requestBody);
+  await getQuestions();
+}
+
+
+function clearData(){
+  document.querySelector('#questions').innerHTML = "";
+}
+
+function deleteQuestionOption(optionObject) {
+
+  return fetch(`${API_URI}/option`, {
+    method: "DELETE",
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(optionObject)
+  })
+    .then(response => {
+      return response.json();
+    })
+    .then(res => {
+     console.log(res);
+     displayMessage(res);
+    })
+    .catch(err => console.log(err))
+
+}
+
+let displayMessage = (message) => {
+
+  console.log(message);
+}
+
+
+
+
+
