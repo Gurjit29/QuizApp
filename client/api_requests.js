@@ -28,6 +28,24 @@ export let updateQuestion = async(questionData) => {
 
 }
 
+// PUT request to save the question
+export let deleteOneQuestion = async(questionData) => {
+
+  let response = await fetch(API_URI, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(questionData)
+  }). catch(err => console.log(err));
+
+  let message = await response.json();
+  return message;
+
+}
+
+
 
 // DELETE request to delete an option
 export let deleteQuestionOption = async(optionObject) => {

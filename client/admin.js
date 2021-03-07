@@ -1,11 +1,16 @@
-import { getQuestions, deleteQuestionOption, updateQuestion } from './api_requests.js';
+import { getQuestions, deleteQuestionOption, updateQuestion,deleteOneQuestion } from './api_requests.js';
 import { createQuestion, createOption, createButtonsDiv, questionHasAtleastTwoOptions, optionCanBeCleared, showMessageAlert } from './userInterface.js';
 
 const QUESTION_HOLDER = document.querySelector("#questionsHolder");
 
 
+
 // On page load ---> /GET request to API to display the questions from backend
-getQuestions().then(data => displayQuestions(data));
+let loadQuestions = () =>{
+  getQuestions().then(data => displayQuestions(data));
+}
+loadQuestions();
+
 
 //Populate UI with questions
 let displayQuestions = (data) => {
@@ -87,7 +92,16 @@ let saveQuestion = (questionId) => {
 
   updateQuestion(data)
   .then(
-    response => showMessageAlert(`#messageDiv_${questionId}`, response)
+    response =>
+    {
+      showMessageAlert(`#messageDiv_${questionId}`, response);
+      setTimeout(()=>{
+        document.querySelector(`#questionsHolder`).innerHTML = "";
+        loadQuestions();
+      },2200);
+      
+
+    } 
   )
 
 
@@ -139,6 +153,22 @@ let prepareJSONData = (questionId) =>{
 
 //DELETE -- "DELETE Question"
 let deleteQuestion = (questionId) => {
+
+  let data = prepareJSONData(questionId);
+
+  console.log(data);
+
+  deleteOneQuestion(data)
+  .then(
+    response => {
+      
+      showMessageAlert(`#messageDiv_${questionId}`, response);
+      setTimeout(()=>document.querySelector(`.question_${questionId}`).remove(),2200);
+      
+    }
+  )
+
+
 
 
 
