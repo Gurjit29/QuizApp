@@ -48,9 +48,6 @@ if(document.querySelector("#newQuestion")){
 }
 
 
-
-
-
 //Populate UI with questions
 let displayQuestions = (data) => {
 
@@ -126,7 +123,11 @@ window.deleteOption = deleteOption;
 
 //Check for duplicated in the options
 let hasDuplicateOptions = (options) => {
-  return new Set(options).size !== options.length ;
+  var filteredArray = options.filter(function (el) {
+    return el.trim() !="";
+  });
+
+  return new Set(filteredArray).size !== filteredArray.length ;
 }
 
 let showDuplicateEntriesError = (questionId) => {
