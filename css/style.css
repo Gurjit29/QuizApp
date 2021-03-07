@@ -61,11 +61,20 @@ body{
   margin:10px;
 }
 
-#questionsHolder{
+#questionsHolder, #newQuestion{
   width:80%;
   display:block;
   margin:auto;
+  margin-bottom:30px;
 }
+
+#add_newOption{
+  display:block;
+  margin:10px auto;
+  
+}
+
+
 
 
 

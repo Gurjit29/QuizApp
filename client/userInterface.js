@@ -29,11 +29,11 @@ export let createButtonsDiv = (questionID, parentElement) => {
   buttonsDiv.className = "utilityButtons";
   buttonsDiv.id = `questions_${questionID}`;
 
-  buttonsDiv.innerHTML += createButtons("danger", "delete", "Delete Question","deleteQuestion", questionID);
+  buttonsDiv.innerHTML += createButton("danger", "delete", "Delete Question","deleteQuestion", questionID);
 
  
 
-  buttonsDiv.innerHTML += createButtons("success", "save", "Save Question","saveQuestion", questionID);
+  buttonsDiv.innerHTML += createButton("success", "save", "Save Question","saveQuestion", questionID);
 
   // buttonsDiv.innerHTML += createButtons("info", "addOption", "Add Option", questionID);
 
@@ -45,7 +45,7 @@ export let createButtonsDiv = (questionID, parentElement) => {
 }
 
 //Generic function for creating buttons
-let createButtons = (buttonClassName, type, buttonText,clickListener, id) => {
+export let createButton = (buttonClassName, type, buttonText,clickListener, id) => {
 
   return `<button type="button" class="btn btn-${buttonClassName}" id="${type}_${id}" onclick="${clickListener}('${id}')" >
   ${buttonText}</button>&nbsp;&nbsp;`;

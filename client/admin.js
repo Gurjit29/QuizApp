@@ -1,5 +1,5 @@
 import { getQuestions, deleteQuestionOption, updateQuestion,deleteOneQuestion } from './api_requests.js';
-import { createQuestion, createOption, createButtonsDiv, questionHasAtleastTwoOptions, optionCanBeCleared, showMessageAlert } from './userInterface.js';
+import { createQuestion, createOption, createButtonsDiv, questionHasAtleastTwoOptions, optionCanBeCleared, showMessageAlert , createButton} from './userInterface.js';
 
 const QUESTION_HOLDER = document.querySelector("#questionsHolder");
 
@@ -48,6 +48,27 @@ let displayQuestions = (data) => {
   });
 
 }
+
+let createNewQuestion = () => {
+
+  const newQuestionDiv = document.createElement("div");
+
+  newQuestionDiv.innerHTML += createQuestion("newQuestion","");
+
+  for(let i=1;i<=4;i++){
+
+    newQuestionDiv.innerHTML += createOption(`newOptions_${i}`,"newQuestion",null,"");
+
+  }
+
+  newQuestionDiv.innerHTML += createButton('info','add', 'Add Question','addNewQuestion', 'newOption');
+
+  const newQuestionHolder = document.querySelector("#newQuestion");
+
+  newQuestionHolder.appendChild(newQuestionDiv);
+
+}
+createNewQuestion();
 
 
 //DELETE option
