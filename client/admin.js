@@ -7,7 +7,10 @@ const QUESTION_HOLDER = document.querySelector("#questionsHolder");
 
 // On page load ---> /GET request to API to display the questions from backend
 export let loadQuestions = () =>{
-  getQuestions().then(data => displayQuestions(data));
+  getQuestions().then(data => {
+    displayQuestions(data)
+   
+  });
 
 }
 
@@ -46,6 +49,8 @@ if(document.querySelector("#newQuestion")){
   createNewQuestion();
   loadQuestions();
 }
+
+
 
 
 //Populate UI with questions
