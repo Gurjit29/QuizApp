@@ -6,10 +6,49 @@ const QUESTION_HOLDER = document.querySelector("#questionsHolder");
 
 
 // On page load ---> /GET request to API to display the questions from backend
-let loadQuestions = () =>{
+export let loadQuestions = () =>{
   getQuestions().then(data => displayQuestions(data));
+
 }
-loadQuestions();
+
+
+let createNewQuestion = () => {
+
+  const newQuestionDiv = document.createElement("div");
+
+  newQuestionDiv.innerHTML += createQuestion("newQuestion","");
+
+ //newQuestionDiv.innerHTML += `<div id="optionsHolder_newQuestion>`;
+
+ const optionsDiv = document.createElement("div");
+
+ optionsDiv.id= "optionsHolder_newQuestion";
+  
+
+  for(let i=1;i<=4;i++){
+
+    optionsDiv.innerHTML += createOption(`newOptions_${i}`,"newQuestion",null,"");
+
+  }
+  //newQuestionDiv.innerHTML+=`</div>`;
+
+  newQuestionDiv.innerHTML += createButton('info','add', 'Add Question','addNewQuestion', 'newQuestion');
+
+  const newQuestionHolder = document.querySelector("#newQuestion");
+
+  newQuestionHolder.appendChild(newQuestionDiv);
+
+  newQuestionDiv.insertBefore(optionsDiv,document.querySelector("#add_newQuestion"));
+
+}
+
+if(document.querySelector("#newQuestion")){
+  createNewQuestion();
+  loadQuestions();
+}
+
+
+
 
 
 //Populate UI with questions
@@ -52,37 +91,6 @@ let displayQuestions = (data) => {
   });
 
 }
-
-let createNewQuestion = () => {
-
-  const newQuestionDiv = document.createElement("div");
-
-  newQuestionDiv.innerHTML += createQuestion("newQuestion","");
-
- //newQuestionDiv.innerHTML += `<div id="optionsHolder_newQuestion>`;
-
- const optionsDiv = document.createElement("div");
-
- optionsDiv.id= "optionsHolder_newQuestion";
-  
-
-  for(let i=1;i<=4;i++){
-
-    optionsDiv.innerHTML += createOption(`newOptions_${i}`,"newQuestion",null,"");
-
-  }
-  //newQuestionDiv.innerHTML+=`</div>`;
-
-  newQuestionDiv.innerHTML += createButton('info','add', 'Add Question','addNewQuestion', 'newQuestion');
-
-  const newQuestionHolder = document.querySelector("#newQuestion");
-
-  newQuestionHolder.appendChild(newQuestionDiv);
-
-  newQuestionDiv.insertBefore(optionsDiv,document.querySelector("#add_newQuestion"));
-
-}
-createNewQuestion();
 
 
 //DELETE option
