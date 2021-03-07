@@ -11,6 +11,23 @@ export let getQuestions = async() => {
   return data;
 }
 
+//POST request to add question to database
+export let addQuestion = async(questionData) => {
+
+  let response = await fetch(API_URI, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(questionData)
+  }). catch(err => console.log(err));
+
+  let message = await response.json();
+  return message;
+
+}
+
 // PUT request to save the question
 export let updateQuestion = async(questionData) => {
 
@@ -28,7 +45,7 @@ export let updateQuestion = async(questionData) => {
 
 }
 
-// PUT request to save the question
+//DELETE to delete the question
 export let deleteOneQuestion = async(questionData) => {
 
   let response = await fetch(API_URI, {

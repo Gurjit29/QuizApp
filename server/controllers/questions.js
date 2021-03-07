@@ -27,7 +27,7 @@ exports.getQuestions = (req, res) => {
     let sql = `SELECT q.questionText,q.correctAnswer, q.questionID, GROUP_CONCAT(o.optionID) AS optionID, GROUP_CONCAT(o.questionOption) as options
     FROM questions q, options o
     WHERE q.questionID = o.questionID
-    GROUP BY q.questionID;`;
+    GROUP BY q.questionID ORDER BY q.questionID DESC;`;
 
     connection.query(sql, function (error, results, fields) {
 

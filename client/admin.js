@@ -1,4 +1,4 @@
-import { getQuestions, deleteQuestionOption, updateQuestion,deleteOneQuestion } from './api_requests.js';
+import { getQuestions, deleteQuestionOption, updateQuestion,deleteOneQuestion ,addQuestion} from './api_requests.js';
 import { createQuestion, createOption, createButtonsDiv, questionHasAtleastTwoOptions, optionCanBeCleared, showMessageAlert , createButton} from './userInterface.js';
 
 const QUESTION_HOLDER = document.querySelector("#questionsHolder");
@@ -55,17 +55,27 @@ let createNewQuestion = () => {
 
   newQuestionDiv.innerHTML += createQuestion("newQuestion","");
 
+ //newQuestionDiv.innerHTML += `<div id="optionsHolder_newQuestion>`;
+
+ const optionsDiv = document.createElement("div");
+
+ optionsDiv.id= "optionsHolder_newQuestion";
+  
+
   for(let i=1;i<=4;i++){
 
-    newQuestionDiv.innerHTML += createOption(`newOptions_${i}`,"newQuestion",null,"");
+    optionsDiv.innerHTML += createOption(`newOptions_${i}`,"newQuestion",null,"");
 
   }
+  //newQuestionDiv.innerHTML+=`</div>`;
 
-  newQuestionDiv.innerHTML += createButton('info','add', 'Add Question','addNewQuestion', 'newOption');
+  newQuestionDiv.innerHTML += createButton('info','add', 'Add Question','addNewQuestion', 'newQuestion');
 
   const newQuestionHolder = document.querySelector("#newQuestion");
 
   newQuestionHolder.appendChild(newQuestionDiv);
+
+  newQuestionDiv.insertBefore(optionsDiv,document.querySelector("#add_newQuestion"));
 
 }
 createNewQuestion();
@@ -116,10 +126,16 @@ let saveQuestion = (questionId) => {
     response =>
     {
       showMessageAlert(`#messageDiv_${questionId}`, response);
-      setTimeout(()=>{
-        document.querySelector(`#questionsHolder`).innerHTML = "";
-        loadQuestions();
-      },2200);
+      if(response["message"]){
+
+        setTimeout(()=>{
+          document.querySelector(`#questionsHolder`).innerHTML = "";
+          loadQuestions();
+        },2200);
+
+
+      }
+     
       
 
     } 
@@ -132,6 +148,7 @@ window.saveQuestion = saveQuestion;
 
 
 let prepareJSONData = (questionId) =>{
+  console.log(questionId," is ---- ");
   let questionText = document.querySelector(`#question_${questionId}`).value.trim();
 
   let options = [];
@@ -169,6 +186,30 @@ let prepareJSONData = (questionId) =>{
  return questionData;
 
 }
+
+
+let addNewQuestion = (questionId) =>{
+
+  let newQuestionData = prepareJSONData(questionId);
+
+  addQuestion(newQuestionData)
+  .then (
+    (response) => {
+      showMessageAlert(`#messageDiv_${questionId}`, response);
+
+      setTimeout(()=>{
+      if(response["message"]){
+        document.querySelector("#questionsHolder").innerHTML = "";
+        loadQuestions();
+        document.querySelector("#newQuestion").innerHTML = "";
+        createNewQuestion();
+      }
+    },2200);
+    
+    }
+  )
+}
+window.addNewQuestion = addNewQuestion;
 
 
 
