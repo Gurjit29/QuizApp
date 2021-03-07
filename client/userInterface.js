@@ -31,7 +31,6 @@ export let createButtonsDiv = (questionID, parentElement) => {
 
   buttonsDiv.innerHTML += createButton("danger", "delete", "Delete Question","deleteQuestion", questionID);
 
- 
 
   buttonsDiv.innerHTML += createButton("success", "save", "Save Question","saveQuestion", questionID);
 

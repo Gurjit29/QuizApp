@@ -45,6 +45,10 @@ let displayQuestions = (data) => {
 
     questionsDiv.innerHTML += `<hr style="height:10px;">`;
 
+    let questionArea = document.querySelector(`#question_${question.questionID}`);
+
+    questionArea.style.height = questionArea.scrollHeight+"px";
+
   });
 
 }
