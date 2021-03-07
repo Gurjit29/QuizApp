@@ -115,7 +115,7 @@ let calculateScore = (selectedAnswers) => {
         });
         let score = matchAnswers(selectedAnswers,correctAnswersArray);
 
-        document.querySelector("#alertDiv").innerHTML +=`<div class="btn btn-warning">
+        document.querySelector("#alertDiv").innerHTML =`<div class="btn btn-warning">
             <h5>Your score is: ${score}/${selectedAnswers.length}</h5></div>`;
         
         showAnswersToStudent(selectedAnswers,correctAnswersArray);
@@ -128,7 +128,6 @@ let matchAnswers = (userAnswers, correctAnswers) => {
 
   let score = 0;
   userAnswers.forEach((answer,i)=>{
-
     
       if(answer == correctAnswers[i]){
         score++;
@@ -139,7 +138,6 @@ let matchAnswers = (userAnswers, correctAnswers) => {
   return score;
 }
 
-let showAnswersToStudent = () => {
+let showAnswersToStudent = (selectedAnswers,correctAnswers) => {
 
-  
 }
