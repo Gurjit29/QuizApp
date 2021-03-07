@@ -61,7 +61,7 @@ body{
   margin:10px;
 }
 
-#questionsHolder, #newQuestion{
+#questionsHolder, #newQuestion, #alertDiv{
   width:80%;
   display:block;
   margin:auto;
@@ -72,6 +72,10 @@ body{
   display:block;
   margin:10px auto;
   
+}
+
+.form-control:disabled, .form-control[readonly]{
+  background-color: white;
 }
 
 

@@ -11,6 +11,18 @@ export let getQuestions = async() => {
   return data;
 }
 
+//GET request for getting questions from the Database using API
+export let getStudentView = async() => {
+
+  let response = await fetch(`${API_URI}/student`,{
+    method:"GET"
+  });
+
+  let data = await response.json();
+  return data;
+}
+
+
 //POST request to add question to database
 export let addQuestion = async(questionData) => {
 

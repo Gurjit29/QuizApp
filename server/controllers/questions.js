@@ -56,6 +56,46 @@ exports.getQuestions = (req, res) => {
 };
 
 
+//Retrieve all questions from database
+exports.getStudentView = (req, res) => {
+
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+
+    let sql = `SELECT q.questionText,q.correctAnswer, q.questionID, GROUP_CONCAT(o.optionID) AS optionID, GROUP_CONCAT(o.questionOption) as options
+    FROM questions q, options o
+    WHERE q.questionID = o.questionID
+    GROUP BY q.questionID ORDER BY q.questionID DESC;`;
+
+    connection.query(sql, function (error, results, fields) {
+
+      // const obj = JSON.parse(JSON.stringify(results));
+
+      const questions = [];
+
+      results.forEach(el => {
+        const options = el.options.split(',');
+        const optionIDs = el.optionID.split(',');
+
+        const questionObj = new question(el.questionText, el.questionID,el.correctAnswer, optionIDs, options);
+        questionObj.correctAnswer="";
+        questions.push(questionObj);
+      });
+
+      res.status(200).json({ questions: questions });
+
+
+      // When done with the connection, release it.
+      connection.release();
+      // Handle error after the release.
+      if (error) throw error;
+    });
+  });
+
+};
+
+
+
 
 //Update a question in the database
 exports.updateQuestion = (req, res) => {
