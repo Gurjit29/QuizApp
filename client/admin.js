@@ -164,7 +164,7 @@ window.saveQuestion = saveQuestion;
 
 
 let prepareJSONData = (questionId) =>{
-  console.log(questionId," is ---- ");
+
   let questionText = document.querySelector(`#question_${questionId}`).value.trim();
 
   let options = [];
