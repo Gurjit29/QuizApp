@@ -116,6 +116,14 @@ let deleteOption = (optionId, questionId, correctAnswer) => {
 }
 window.deleteOption = deleteOption;
 
+//Check for duplicated in the options
+let hasDuplicateOptions = (options) => {
+  return new Set(options).size !== options.length ;
+}
+
+let showDuplicateEntriesError = (questionId) => {
+  showMessageAlert(`#messageDiv_${questionId}`, {"error" : "No Duplicate Options are allowed!"});
+}
 
 
 //PUT -- "save Question"
@@ -125,6 +133,7 @@ let saveQuestion = (questionId) => {
 
   console.log(data);
 
+  if(!hasDuplicateOptions(data['options'])){
   updateQuestion(data)
   .then(
     response =>
@@ -144,6 +153,9 @@ let saveQuestion = (questionId) => {
 
     } 
   )
+  }else{
+    showDuplicateEntriesError(questionId);
+  }
 
 
 }
@@ -170,11 +182,11 @@ let prepareJSONData = (questionId) =>{
 
       if(radioButtons[i].checked){
 
-        correctAnswer = option.value;
+        correctAnswer = option.value.trim();
       }
 
         optionIDs.push(option.id.split("_")[1]);
-        options.push(option.value);
+        options.push(option.value.trim());
       
     }
   );
@@ -196,6 +208,7 @@ let addNewQuestion = (questionId) =>{
 
   let newQuestionData = prepareJSONData(questionId);
 
+  if(!hasDuplicateOptions(newQuestionData['options'])){
   addQuestion(newQuestionData)
   .then (
     (response) => {
@@ -212,6 +225,10 @@ let addNewQuestion = (questionId) =>{
     
     }
   )
+  }
+  else{
+    showDuplicateEntriesError(questionId);
+  }
 }
 window.addNewQuestion = addNewQuestion;
 

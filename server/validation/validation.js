@@ -19,6 +19,8 @@ exports.validateQuestion = (req,res,next) => {
    .notEmpty()
    .withMessage('Please select the right answer for the question')
 
+  
+
 
 
   var errors = req.validationErrors();
