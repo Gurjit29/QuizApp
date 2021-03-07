@@ -53,7 +53,7 @@ let displayQuestions = (questions) => {
               ${option == question.correctAnswer ? "checked" : ""}>
             </span>
             <input type="text" class="form-control" value="${option}" aria-label="Username" aria-describedby="addon-wrapping">
-            <button class="btn btn-danger deleteOptionButton" id="delete_option_${question.optionID[index]}" onclick="deleteOption('${question.optionID[index]}','${question.questionID}')">X</button>
+            <button class="btn btn-danger deleteOptionButton" id="delete_option_${question.optionID[index]}" onClick="deleteOption('${question.optionID[index]}','${question.questionID}')">X</button>
           </div>`;
 
       });

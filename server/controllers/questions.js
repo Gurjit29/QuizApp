@@ -72,6 +72,7 @@ exports.updateQuestion = (req, res) => {
       //addOptionsToDatabase(results.insertId, req.body.options);
       updateOptionsInDatabase(req.body.questionID,req.body.options,req.body.optionIDs);
 
+      
       res.status(200).json({ message: "The question has been updated in the database" });
 
       // When done with the connection, release it.
@@ -93,14 +94,14 @@ let updateOptionsInDatabase = (questionID, options,optionsIds) => {
 
       let sql ="";
 
-      if(option == ''){
-         sql = `DELETE FROM options WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
+      // if(option == ''){
+      //    sql = `DELETE FROM options WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
 
-      }
-      else{
+      // }
+      // else{
         sql = `UPDATE options SET questionOption = '${option}' WHERE questionID = '${questionID}' AND optionID =${optionsIds[index]} `;
 
-      }
+     // }
       
 
       connection.query(sql, function (error, results, fields) {

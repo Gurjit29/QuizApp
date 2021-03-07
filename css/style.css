@@ -61,6 +61,12 @@ body{
   margin:10px;
 }
 
+#questionsHolder{
+  width:80%;
+  display:block;
+  margin:auto;
+}
+
 
 
 

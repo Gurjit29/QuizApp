@@ -7,15 +7,18 @@ exports.validateQuestion = (req,res,next) => {
   .notEmpty()
   .withMessage('Please enter the question title')
 
-  //Must have a correctAnswer
-  req.check("correctAnswer")
-  .notEmpty()
-  .withMessage('Please select a correct answer for the question')
-
+ 
   //Validation if user entered any options
-  req.check("options")
+  req.check("options.*")
   .notEmpty()
-  .withMessage('Please enter at least one option for the question')
+  .withMessage('Please enter the option(s) for the question')
+
+
+   //Validation for correct Answer
+   req.check("correctAnswer")
+   .notEmpty()
+   .withMessage('Please select the right answer for the question')
+
 
 
   var errors = req.validationErrors();
@@ -25,7 +28,7 @@ exports.validateQuestion = (req,res,next) => {
     //msg is property in validation errors array like = > [{ msg: "" }] --> so use map()
    const firstError=errors.map((error)=> error.msg)[0]
 
-    return res.status(400).json({
+    return res.status(200).json({
         error:firstError
     });
 }
