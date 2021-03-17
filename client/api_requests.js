@@ -1,4 +1,4 @@
-const API_URI = 'http://localhost:3000/questions';
+const API_URI = 'https://gurjitlocker.tk/COMP351/QuizApp/server/questions';
 
 //GET request for getting questions from the Database using API
 export let getQuestions = async() => {

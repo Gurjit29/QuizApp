@@ -24,6 +24,9 @@ let populateQuestions = (questions) => {
   }
   else{
 
+  //remove loader from the page
+  document.querySelector("#loader").remove();
+
   questions["questions"].forEach( (question)=> {
 
     const questionsDiv = document.createElement("div");
@@ -65,7 +68,12 @@ let configureStudentView = () => {
   //Make textareas readonly
   let textAreas = document.querySelectorAll("textarea");
 
-  textAreas.forEach(inputField => inputField.readOnly = true);
+  textAreas.forEach(inputField => {
+
+    inputField.readOnly = true
+
+    inputField.style.height = inputField.scrollHeight+"px";
+  });
 
 
 }
