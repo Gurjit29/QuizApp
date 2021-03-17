@@ -70,7 +70,7 @@ export let showMessageAlert = ( insertDivPosition, messageContent) =>  {
 
   //Clear the alert message
   setTimeout(function(){
-    document.querySelector(insertDivPosition).innerHTML = "";
+    document.querySelector(".alert").remove();
   }, 2000);
 
 
